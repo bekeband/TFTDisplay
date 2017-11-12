@@ -2,6 +2,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.*;
 import org.eclipse.swt.widgets.*;
 
+
 public class Shell extends org.eclipse.swt.widgets.Shell {
 	
 	private static Shell shell;
@@ -45,8 +46,21 @@ public class Shell extends org.eclipse.swt.widgets.Shell {
         gc.fillRectangle(250, 15, 90, 60);
 
         gc.fillRoundRectangle(5,5,90,45,25,15);
+  
+        PaletteData p = new PaletteData(0xFF , 0xFF00 , 0xFF0000);
+        Hardware TFTHardware = new Hardware(320, 240, Hardware.c_MODE.BIT18);
+
+	    for (int x=0; x<48; x++){
+	    	for(int y=0; y<48; y++){
+	        	TFTHardware.writePixel(x, y, p);
+	         }
+	    };
         
-		PaletteData palette = new PaletteData(0xFF , 0xFF00 , 0xFF0000);
+        Image image = new Image(Display.getDefault(), TFTHardware.GetImageData());
+        
+        gc.drawImage(image, 0, 0);
+        
+/*		PaletteData palette = new PaletteData(0xFF , 0xFF00 , 0xFF0000);
 	    ImageData imageData = new ImageData(48,48,24,palette);
 	    for (int x=0;x<48;x++){
 	        for(int y=0;y<48;y++){
@@ -59,7 +73,7 @@ public class Shell extends org.eclipse.swt.widgets.Shell {
 	    };
 	    Image image = new Image(Display.getDefault(), imageData);
 	    
-	    gc.drawImage(image, 0, 0);
+	    */
         
         c1.dispose();
         c2.dispose();
